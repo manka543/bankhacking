@@ -1,19 +1,33 @@
 import pygame
-from random import randint
+from random import shuffle
 import box
 import textbox
 import button
+import json
+
+
+def numberGenerator():
+    numbers = [1, 2, 3, 4]
+    shuffle(numbers)
+    for i in range(4):
+        yield numbers[0]
 
 
 class Game:
     def __init__(self):
         # First
         pygame.init()
+        with open("config.json") as file:
+            self.config = json.load(file)
+            print(self.config)
         self.screen = pygame.display.set_mode((1275, 760))
         # order doesn't care
         self.running = True
         self.fps = 60
-        self.startBtn = button.Button(self.screen, (485, 300), (300, 160), 72, "START")
+        self.startBtn = button.Button(self.screen, (485, 300), (300, 160), 72, "START",
+                                      self.config["color"]["startButton"]["normal"],
+                                      self.config["color"]["startButton"]["hover"],
+                                      self.config["color"]["startButton"]["pressed"])
         self.textBox = textbox.TextBox()
         self.font72 = pygame.font.Font('freesansbold.ttf', 72)
         self.numberRenders = {1: self.font72.render("1", True, (255, 255, 255)),
@@ -23,19 +37,21 @@ class Game:
         self.gamePhase = "start"
         self.countValue = 3
         self.countValueFrames = 60
-        numbers = [1, 2, 3, 4]
-        self.numberBoxes = [box.Box(numbers.pop(randint(0, len(numbers) - 1))),
-                            box.Box(numbers.pop(randint(0, len(numbers) - 1))),
-                            box.Box(numbers.pop(randint(0, len(numbers) - 1))),
-                            box.Box(numbers.pop(randint(0, len(numbers) - 1)))]
-        del numbers
+        # TODO: Ten mechanizm losowania może nie działać ale narazie nie sprawdzam
+        realNumberGenerator = numberGenerator()
+        fakeNumberGenerator = numberGenerator()
+        self.numberBoxes = [box.Box(next(realNumberGenerator), 0, next(fakeNumberGenerator)),
+                            box.Box(next(realNumberGenerator), 1, next(fakeNumberGenerator)),
+                            box.Box(next(realNumberGenerator), 2, next(fakeNumberGenerator)),
+                            box.Box(next(realNumberGenerator), 3, next(fakeNumberGenerator))]
         # Last
+        print(self.numberBoxes)
         pygame.display.set_caption("BANK HACKING GAME")
         self.clock = pygame.time.Clock()
         self.game_loop()
 
     def graphic(self):
-        self.screen.fill((32, 40, 46))
+        self.screen.fill(self.config["color"]["bgColor"])
         if self.gamePhase == "start":
             self.startBtn.draw(pygame.mouse.get_pos(), pygame.mouse.get_pressed(3)[0])
         elif self.gamePhase == "counting down":

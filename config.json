@@ -1,0 +1,35 @@
+{
+  "color": {
+    "bgColor": [
+      32,
+      40,
+      46
+    ],
+    "startButton": {
+      "normal": [
+        44,
+        70,
+        94
+      ],
+      "hover": [
+        24,
+        50,
+        74
+      ],
+      "pressed": [
+        64,
+        90,
+        114
+      ]
+    },
+    "white": [255,255,255],
+    "black": [0,0,0]
+
+  },
+  "font": {
+    "main": "freesansbold.ttf"
+  },
+  "amountOfBoxes": 4,
+  "sizeOfDisplay": [1275, 760],
+  "fps": 60
+}
