@@ -40,12 +40,17 @@ class Game:
         # TODO: Ten mechanizm losowania może nie działać ale narazie nie sprawdzam
         realNumberGenerator = numberGenerator()
         fakeNumberGenerator = numberGenerator()
-        self.numberBoxes = [box.Box(self.screen, next(realNumberGenerator), 0, next(fakeNumberGenerator)),
-                            box.Box(self.screen, next(realNumberGenerator), 1, next(fakeNumberGenerator)),
-                            box.Box(self.screen, next(realNumberGenerator), 2, next(fakeNumberGenerator)),
-                            box.Box(self.screen, next(realNumberGenerator), 3, next(fakeNumberGenerator))]
+        self.numberBoxes = [
+            box.Box(self.screen, next(realNumberGenerator), 0, next(fakeNumberGenerator), self.config["color"]["box"],
+                    self.config["shapes"]),
+            box.Box(self.screen, next(realNumberGenerator), 1, next(fakeNumberGenerator), self.config["color"]["box"],
+                    self.config["shapes"]),
+            box.Box(self.screen, next(realNumberGenerator), 2, next(fakeNumberGenerator), self.config["color"]["box"],
+                    self.config["shapes"]),
+            box.Box(self.screen, next(realNumberGenerator), 3, next(fakeNumberGenerator), self.config["color"]["box"],
+                    self.config["shapes"])]
         # Last
-        print(self.numberBoxes)
+        print(self.numberBoxes[0], self.numberBoxes[1], self.numberBoxes[2], self.numberBoxes[3])
         pygame.display.set_caption("BANK HACKING GAME")
         self.clock = pygame.time.Clock()
         self.game_loop()
@@ -58,7 +63,11 @@ class Game:
             self.screen.blit(self.numberRenders[self.countValue], (650, 300))
         elif self.gamePhase == "phase1":
             for i in self.numberBoxes:
-                i.draw(self.countValueFrames, self.countValue)
+                i.draw("phase1", self.countValueFrames, self.countValue)
+        elif self.gamePhase == "phase2":
+            self.textBox.draw()
+            for i in self.numberBoxes:
+                i.draw("phase2")
 
         pygame.display.update()
 
@@ -74,6 +83,7 @@ class Game:
                 self.countValue = 1
             elif self.gamePhase == "phase1" and self.countValueFrames == 1:
                 self.gamePhase = "phase2"
+                self.textBox.active = True
 
     def logic(self):
         if self.gamePhase == "start":

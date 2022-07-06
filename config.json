@@ -22,13 +22,21 @@
         114
       ]
     },
+    "box": {
     "white": [255,255,255],
-    "black": [0,0,0]
-
+    "black": [0,0,0],
+    "green": [0,255,0],
+    "blue": [0,0,255],
+    "purple": [153,38,172],
+    "yellow": [252,235,61],
+    "orange": [253,152,2],
+    "red": [255,0,0]
+    }
   },
   "font": {
     "main": "freesansbold.ttf"
   },
+  "shapes": ["rectangle","square","circle","triangle"],
   "amountOfBoxes": 4,
   "sizeOfDisplay": [1275, 760],
   "fps": 60
