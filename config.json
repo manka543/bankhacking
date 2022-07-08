@@ -39,5 +39,6 @@
   "shapes": ["rectangle","square","circle","triangle"],
   "amountOfBoxes": 4,
   "sizeOfDisplay": [1275, 760],
-  "fps": 60
+  "fps": 60,
+  "roundTime": 15
 }

@@ -19,7 +19,7 @@ class Button:
             pygame.draw.rect(self.screen, self.colorHover, self.rect)
         else:
             pygame.draw.rect(self.screen, self.color, self.rect)
-        self.screen.blit(self.text, (self.rect.x + 30, self.rect.y + 50))
+        self.screen.blit(self.text, (self.rect.centerx - self.text.get_width()/2, self.rect.y + 50))
 
     def isClicked(self, mousepos, isclicked):
         if self.rect.collidepoint(mousepos) and isclicked:
