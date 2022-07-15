@@ -50,8 +50,7 @@ class Box:
         self.fakeNumber = fakenumber
         self.font = pygame.font.Font('freesansbold.ttf', 180)
         self.textFont = pygame.font.Font('freesansbold.ttf', 30)
-        self.textBorderFont = pygame.font.Font('freesansbold.ttf', 36)
-        self.textBorderFont.set_bold(True)
+        self.fakeNumberFont = pygame.font.Font('freesansbold.ttf', 45)
         self.numberRender = self.font.render(str(self.number), True, (255, 255, 255))
         self._x = self.position * 300 + 63
         self._y = 100
@@ -79,11 +78,14 @@ class Box:
         self.innerShapeBorder = self.borderColors[self.innerShapeColor]
         self.shapeTextBorder = self.borderColors[self.colorShapeText]
         self.colorTextBorder = self.borderColors[self.colorColorText]
+        self.numberBorder = self.borderColors[self.numberColor]
         # Render texts and texts borders
         self.shapeTextRender = renderTextWithBorder(self.shapeText, self.textFont, self.colorShapeText,
                                                     self.shapeTextBorder, 3)
         self.colorTextRender = renderTextWithBorder(self.colorText, self.textFont, self.colorColorText,
                                                     self.colorTextBorder, 3)
+        self.fakeNumberRender = renderTextWithBorder(str(self.fakeNumber), self.fakeNumberFont, self.numberColor,
+                                                     self.numberBorder, 2)
 
     def __str__(self):
         return f"Box in Position {self.position}\nNumber: {self.number}\nFake number: {self.fakeNumber}\n" \
@@ -144,6 +146,8 @@ class Box:
             self.screen.blit(self.colorTextRender, (self._x + 125 - self.colorTextRender.get_width() / 2, self._y + 48))
             self.screen.blit(self.shapeTextRender,
                              (self._x + 125 - self.shapeTextRender.get_width() / 2, self._y + 158))
+            self.screen.blit(self.fakeNumberRender,
+                             (self._x + 125 - self.fakeNumberRender.get_width() / 2, self._y + 103))
 
     def __getitem__(self, item):
         match item:
@@ -192,4 +196,4 @@ class Box:
             case "color color text":
                 return self.colorColorText
             case _:
-                return "idex out of range"
+                return "index out of range"

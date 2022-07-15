@@ -32,7 +32,7 @@ class Game:
         pygame.init()
         with open("config.json") as file:
             self.config = json.load(file)
-            print(self.config)
+            # print(self.config)
         self.screen = pygame.display.set_mode((1275, 760))
         # order doesn't care
         self.fps = self.config["fps"]
@@ -58,7 +58,7 @@ class Game:
         self.winRender = self.font72.render("WIN!!!", True, (255, 255, 255))
         self.loseRender = self.font72.render("LOSE!!!", True, (255, 255, 255))
         # Last
-        self.gamereset()
+        self.gameReset()
         self.clock = pygame.time.Clock()
         self.game_loop()
 
@@ -88,15 +88,15 @@ class Game:
         self.questionRender = self.font24.render(self.question, True, "white")
         self.expectedAnswer = f"{self.numberBoxes[self.askedObjects[0][0]][self.askedObjects[0][1]]} " \
                               f"{self.numberBoxes[self.askedObjects[1][0]][self.askedObjects[1][1]]}"
-        print(self.numberBoxes[0].number, self.numberBoxes[1].number, self.numberBoxes[2].number,
-              self.numberBoxes[3].number)
-        print(f"QUESTION: {self.question}\nEXPECTED ANSWER: {self.expectedAnswer}")
+        # print(self.numberBoxes[0].number, self.numberBoxes[1].number, self.numberBoxes[2].number,
+        #    self.numberBoxes[3].number)
+        # print(f"QUESTION: {self.question}\nEXPECTED ANSWER: {self.expectedAnswer}")
         self.winRender = self.font72.render("WIN!!!", True, (255, 255, 255))
         self.loseRender = self.font72.render("LOSE!!!", True, (255, 255, 255))
         self.expectedAnswerRender = self.font12.render(f"Expected answer: '{self.expectedAnswer}'", True,
                                                        (255, 255, 255))
 
-    def gamereset(self):
+    def gameReset(self):
         self.gameWon = False
         self.gameWins = 0
         self.roundReset()
@@ -164,7 +164,7 @@ class Game:
                     self.gameWon = False
         elif self.gamePhase == "endScreen":
             if self.playAgainBTn.isClicked(pygame.mouse.get_pos(), pygame.mouse.get_pressed(3)[0]):
-                self.gamereset()
+                self.gameReset()
 
     def game_loop(self):
         while self.running:
